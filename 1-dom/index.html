@@ -2,8 +2,193 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>Kernel360 Web Dev Base</title>
+    <style>
+        body{
+            margin:0; padding:30px;
+        }
+        .app-wrapper{
+            display: flex;
+            justify-content: center;
+        }
+        .app-container{
+            display: flex;
+            flex-direction: column;
+            width: 1000px;
+        }
+        .grid-container{
+            display: grid;
+            grid-template-rows: repeat(4, 1fr);
+            grid-template-columns: repeat(4,1fr);
+            grid-gap: 15px;
+            margin-bottom: 15px;
+        }
+        .bg-red{
+            background-color: rgba(255, 0, 0, 0.5);
+        }
+        .bg-green{
+            background-color: rgba(0, 128, 0, 0.5);
+        }
+        .bg-blue{
+            background-color: rgba(0, 0, 255, 0.5);
+        }
+        .reset{
+            background-color: lightgray;
+
+
+        }
+        .text-bold{
+            font-weight: bold;
+        }
+        .text-italic{
+            font-style: italic;
+        }
+        .text-strike{
+            text-decoration: line-through;
+        }
+        .text-underline{
+            text-decoration: underline;
+        }
+
+        .control-container{
+            margin: 15px 0;
+        }
+    </style>
 </head>
 <body>
+<div class="app-wrapper">
+    <div class="app-container">
+        <div class="grid-container">
+        </div>
+        <div class="control-container">
+            <label>
+                <span>ID</span>
+                <input id="input-id">
+            </label>
+            <button onclick="setBGRed()">Set BG red</button>
+            <button onclick="setBGGreen()">Set BG green</button>
+            <button onclick="setBGBlue()">Set BG blue</button>
+        </div>
+        <div class="control-container">
+            <label>
+                <span>class</span>
+                <input id="input-class">
+            </label>
+            <button onclick="setTextBold()">Set text bold</button>
+            <button onclick="setTextItalic()">Set text italic</button>
+            <button onclick="setTextStrike()">Set text strike</button>
+            <button onclick="setTextUnderline()">Set text underline</button>
+        </div>
+        <div class="control-container">
+            <label>
+                <span>query</span>
+                <input id="input-query">
+            </label>
 
+            <button onclick="resetStyle()">Reset style</button>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function initBox(row, column){
+        const backgroundColors = ["bg-red", 'bg-green', 'bg-blue'];
+        const textStyles = ['text-bold','text-italic','text-strike','text-underline'];
+
+        const parentElement = document.querySelector('.grid-container')
+        for (let i = 0; i < row * column; i++) {
+            const newBox = document.createElement('div');
+            newBox.className = `grid-item ${backgroundColors[getRandomInt(3)]} ${textStyles[getRandomInt(4)]}`;
+            newBox.id = `id-${(i+1).toString()}`;
+            newBox.textContent = (i+1).toString();
+            newBox.style.fontSize = '25px';
+            newBox.style.textAlign = 'center';
+            newBox.style.lineHeight = '100px';
+            parentElement.appendChild(newBox);
+        }
+    }
+    function getRandomInt(max){
+        return Math.floor(Math.random()*max);
+    }
+    function setBGRed(){
+        const id = document.querySelector('#input-id').value;
+        const selectedBox = document.querySelector(`#${id.toString()}`);
+        selectedBox.classList.add('bg-red');
+        selectedBox.classList.remove('bg-green');
+        selectedBox.classList.remove('bg-blue');
+        selectedBox.classList.remove('reset');
+
+    }
+   function setBGGreen(){
+       const id = document.querySelector('#input-id').value;
+       const selectedBox = document.querySelector(`#${id.toString()}`);
+       selectedBox.classList.remove('bg-red');
+       selectedBox.classList.add('bg-green');
+       selectedBox.classList.remove('bg-blue');
+       selectedBox.classList.remove('reset');
+
+   }
+   function setBGBlue(){
+       const id = document.querySelector('#input-id').value;
+       const selectedBox = document.querySelector(`#${id.toString()}`);
+       selectedBox.classList.remove('bg-red');
+       selectedBox.classList.remove('bg-green');
+       selectedBox.classList.add('bg-blue');
+       selectedBox.classList.remove('reset');
+
+   }
+    function setTextBold(){
+        const className = document.querySelector('#input-class').value;
+        const selectedBoxes = document.querySelectorAll(`.${className.toString()}`);
+        selectedBoxes.forEach(e => {
+            e.classList.add('text-bold');
+            e.classList.remove('text-italic');
+            e.classList.remove('text-strike');
+            e.classList.remove('text-underline');
+            e.classList.remove('reset');
+        });
+    }
+    function setTextItalic(){
+        const className = document.querySelector('#input-class').value;
+        const selectedBoxes = document.querySelectorAll(`.${className.toString()}`);
+        selectedBoxes.forEach(e => {
+            e.classList.remove('text-bold');
+            e.classList.add('text-italic');
+            e.classList.remove('text-strike');
+            e.classList.remove('text-underline');
+            e.classList.remove('reset');
+        });
+    }
+       function setTextStrike(){
+        const className = document.querySelector('#input-class').value;
+        const selectedBoxes = document.querySelectorAll(`.${className.toString()}`);
+        selectedBoxes.forEach(e => {
+           e.classList.remove('text-bold');
+           e.classList.remove('text-italic');
+           e.classList.add('text-strike');
+           e.classList.remove('text-underline');
+           e.classList.remove('reset');
+       });
+    }
+       function setTextUnderline(){
+       const className = document.querySelector('#input-class').value;
+       const selectedBoxes = document.querySelectorAll(`.${className.toString()}`);
+       selectedBoxes.forEach(e => {
+           e.classList.remove('text-bold');
+           e.classList.remove('text-italic');
+           e.classList.remove('text-strike');
+           e.classList.add('text-underline');
+           e.classList.remove('reset');
+       });
+   }
+
+    function resetStyle(){
+        const selector = document.querySelector('#input-query').value;
+        const selectedItems = document.querySelectorAll(selector.toString());
+        selectedItems.forEach(e => e.className=`grid-item reset`);
+    }
+    initBox(4,4);
+</script>
 </body>
 </html>
