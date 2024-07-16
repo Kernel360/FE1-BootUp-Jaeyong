@@ -14,4 +14,8 @@ HTML/CSS/JavaScript만을 사용하여 웹사이트를 구현하고, 리액트 �
 - 특정 class를 가진 사각형들의 텍스트 스타일을 한 번에 변경하는 기능 적용
 - 특정 selector에 해당되는 사각형들의 스타일을 한 번에 초기화 하는 기능 적용
 ## 2-babel-webpack
+### 수행 내용
+- webpack-cli 설치 및 설정파일 작성, 라이브러리 적용
+- babel-loader, @babel/core 설치 및 프리셋 적용
+- Babel을 적용하기 전과 후의 코드 비교
 ## 3-react-app
