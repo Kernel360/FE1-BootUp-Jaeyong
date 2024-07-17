@@ -19,3 +19,6 @@ HTML/CSS/JavaScript만을 사용하여 웹사이트를 구현하고, 리액트 �
 - babel-loader, @babel/core 설치 및 프리셋 적용
 - Babel을 적용하기 전과 후의 코드 비교
 ## 3-react-app
+- Webpack 설치 및 연동
+- 기존 App을 React App으로 변경
+- babel, css loader 연동
